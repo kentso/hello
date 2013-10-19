@@ -57,7 +57,7 @@ var sqlite_db =  function () {
        // }
 
         // Transaction error callback
-        var errorCB = function (err) {
+        errorCB = function (err) {
             console.log("Error processing SQL: "+err.code);
         }
 
