@@ -70,16 +70,19 @@ var sqlite_db =  function () {
 
         insert_photo : function (path, create_date, tag_arr, cb) {
             var tag_str = tag_arr.join(',');
-            db.transaction(
-                function (tx) {
-                    tx.executeSql('INSERT INTO photo (path, create_date, tag) VALUES (' + path + ',' + create_date + ',' + tag_str + ')');
-                    for ( var i=0 ; i < tag_arr.length ; i++ ){
-                        tx.executeSql('INSERT OR REPLACE INTO tag (name, last_update) VALUES (' + tag_arr[i] + ',' + create_date + ')');
-                    }
-                },
-                errorCB,
-                cb
-            );
+            var query = function (tx) {
+                            tx.executeSql('INSERT INTO photo (path, create_date, tag) VALUES (' + path + ',' + create_date + ',' + tag_str + ')');
+                            for ( var i=0 ; i < tag_arr.length ; i++ ){
+                                tx.executeSql('INSERT OR REPLACE INTO tag (name, last_update) VALUES (' + tag_arr[i] + ',' + create_date + ')');
+                            }
+                        };
+
+            if(cb){
+                db.transaction(query, errorCB, cb);
+            }
+            else{
+                db.transaction(query, errorCB);
+            }
         },
 
         clear_db : function () {
