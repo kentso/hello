@@ -17,7 +17,16 @@ var sqlite_db =  function () {
                     tx.executeSql('CREATE TABLE IF NOT EXISTS tag (name TEXT PRIMARY KEY, last_update INTEGER)');
                     tx.executeSql('SHOW TABLES');
                 },
-                errorCB
+                errorCB,
+                function querySuccess(tx, results) {
+                    var len = results.rows.length;
+                    console.log("DEMO table: " + len + " rows found.");
+                    for (var i=0; i<len; i++){
+                        console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+                    }
+
+                }
+
             );
         },
 
