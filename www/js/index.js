@@ -71,9 +71,9 @@ var sqlite_db =  function () {
         insert_photo : function (path, create_date, tag_arr, cb) {
             var tag_str = tag_arr.join(',');
             var query = function (tx) {
-                            tx.executeSql('INSERT INTO photo (path, create_date, tag) VALUES (' + path + ',' + create_date + ',' + tag_str + ')');
+                            tx.executeSql('INSERT INTO photo (path, create_date, tag) VALUES ("' + path + '",' + create_date + ',"' + tag_str + '")');
                             for ( var i=0 ; i < tag_arr.length ; i++ ){
-                                tx.executeSql('INSERT OR REPLACE INTO tag (name, last_update) VALUES (' + tag_arr[i] + ',' + create_date + ')');
+                                tx.executeSql('INSERT OR REPLACE INTO tag (name, last_update) VALUES ("' + tag_arr[i] + '",' + create_date + ')');
                             }
                         };
 
@@ -136,7 +136,7 @@ var app = {
             album_inst.list_tag(function (tag_arr) {
                 console.log(tag_arr);
                 album_inst.clear_db();
-            });
+            }
         });
     }
 };
