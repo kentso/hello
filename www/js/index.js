@@ -127,7 +127,7 @@ var app = {
     // Application Constructor
     init: function () {
         var album_inst = album();
-        album_inst.insert_photo('abcd',1234,'abc');
+        album_inst.insert_photo('abcd',1234,['abc']);
         console.log(album_inst.list_photo());
         console.log(album_inst.list_tag());
         album_inst.clear_db();
