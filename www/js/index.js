@@ -133,10 +133,10 @@ var app = {
         album_inst.insert_photo('abcd',1234,['abc']);
         album_inst.list_photo(function (photo_arr) {
             console.log(photo_arr);
-            album_inst.list_tag(tag_arr){
+            album_inst.list_tag(function (tag_arr) {
                 console.log(tag_arr);
                 album_inst.clear_db();
-            }
+            });
         });
     }
 };
