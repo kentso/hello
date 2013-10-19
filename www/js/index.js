@@ -82,6 +82,6 @@ var album = function () {
 var app = {
     // Application Constructor
     init: function() {
-        db.sqlite_db();
+        db = sqlite_db();
     }
 };
