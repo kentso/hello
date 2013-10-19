@@ -2,12 +2,12 @@ var sqlite_db =  function () {
 
     var db;
 
+    var errorCB = function (err) {
+        console.log("Error processing SQL: " + err.code);
+    };
+
     return {
         // Transaction error callback
-        errorCB : function (err) {
-            console.log("Error processing SQL: " + err.code);
-        },
-
         init : function () {
             //20MB
             db = window.openDatabase("Database", "1.0", "photo and tag", 20000000);
@@ -25,23 +25,23 @@ var sqlite_db =  function () {
             
             db.transaction(
                 function (tx) {
-                    tx.executeSql('SELECT * FROM photo', [], querySuccess, errorCB);
+                    tx.executeSql('SELECT * FROM photo', [], 
+                        function (tx, results) {
+                            var len = results.rows.length;
+                            var result_arr = [];
+                            console.log("photo table: " + len + " rows found.");
+                            for (var i=0; i<len; i++){
+                                result_arr.push({
+                                    path : results.rows.item(i).path,
+                                    create_date : results.rows.item(i).path,
+                                    tag : results.rows.item(i).tag
+                                });
+                            }
+                            cb(result_arr);
+                        },
+                        errorCB);
                 },
                 errorCB
-                ,
-                function (tx, results) {
-                    var len = results.rows.length;
-                    var result_arr = [];
-                    console.log("photo table: " + len + " rows found.");
-                    for (var i=0; i<len; i++){
-                        result_arr.push({
-                            path : results.rows.item(i).path,
-                            create_date : results.rows.item(i).path,
-                            tag : results.rows.item(i).tag
-                        });
-                    }
-                    cb(result_arr);
-                }
             );
         },
 
@@ -49,22 +49,22 @@ var sqlite_db =  function () {
 
             db.transaction(
                 function (tx) {
-                    tx.executeSql('SELECT * FROM tag', [], querySuccess, errorCB);
+                    tx.executeSql('SELECT * FROM tag', [], 
+                        function (tx, results) {
+                            var len = results.rows.length;
+                            var result_arr = [];
+                            console.log("tag table: " + len + " rows found.");
+                            for (var i=0; i<len; i++){
+                                result_arr.push({
+                                    name : results.rows.item(i).name,
+                                    last_update : results.rows.item(i).last_update
+                                });
+                            }
+                            cb(result_arr);
+                        },
+                        errorCB);
                 },
                 errorCB
-                ,
-                function (tx, results) {
-                    var len = results.rows.length;
-                    var result_arr = [];
-                    console.log("tag table: " + len + " rows found.");
-                    for (var i=0; i<len; i++){
-                        result_arr.push({
-                            name : results.rows.item(i).name,
-                            last_update : results.rows.item(i).last_update
-                        });
-                    }
-                    cb(result_arr);
-                }
             );
         },
 
