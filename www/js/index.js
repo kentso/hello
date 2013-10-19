@@ -131,8 +131,12 @@ var app = {
     init: function () {
         var album_inst = album();
         album_inst.insert_photo('abcd',1234,['abc']);
-        console.log(album_inst.list_photo());
-        console.log(album_inst.list_tag());
-        album_inst.clear_db();
+        album_inst.list_photo(function (photo_arr) {
+            console.log(photo_arr);
+            album_inst.list_tag(tag_arr){
+                console.log(tag_arr);
+                album_inst.clear_db();
+            }
+        });
     }
 };
