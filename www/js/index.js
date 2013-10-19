@@ -34,7 +34,7 @@ var sqlite_db =  function () {
                                 result_arr.push({
                                     path : results.rows.item(i).path,
                                     create_date : results.rows.item(i).path,
-                                    tag : results.rows.item(i).tag
+                                    tag : results.rows.item(i).tag.split(',')
                                 });
                             }
                             cb(result_arr);
@@ -131,10 +131,19 @@ var app = {
     init: function () {
         var album_inst = album();
         album_inst.insert_photo('abcd',1234,['abc']);
+        album_inst.insert_photo('abcdjdjfdjfdj',1235,['abc', 'bbc']);
+        //print photo
         album_inst.list_photo(function (photo_arr) {
-            console.log(photo_arr);
+            var i;
+            for (i=0 ; i<photo_arr.length ; i++){
+                console.log('path: "' + photo_arr[i].path + '", create_date: ' + photo_arr[i].create_date + ', tag: "' + photo_arr[i].tag.join(',') + '"'):
+            }
+            //print tag
             album_inst.list_tag(function (tag_arr) {
-                console.log(tag_arr);
+                var i;
+                for (i=0 ; i<tag_arr.length ; i++){
+                    console.log('name: "' + tag_arr[i].name + '", last_update: ' + tag_arr[i].last_update):
+                }
                 album_inst.clear_db();
             });
         });
