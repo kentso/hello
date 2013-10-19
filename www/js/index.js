@@ -144,7 +144,6 @@ var app = {
                 for (i=0 ; i<tag_arr.length ; i++){
                     console.log('name: "' + tag_arr[i].name + '", last_update: ' + tag_arr[i].last_update);
                 }
-                album_inst.clear_db();
             });
         });
     }
