@@ -136,7 +136,7 @@ var app = {
             album_inst.list_tag(function (tag_arr) {
                 console.log(tag_arr);
                 album_inst.clear_db();
-            }
+            });
         });
     }
 };
