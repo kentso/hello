@@ -136,13 +136,13 @@ var app = {
         album_inst.list_photo(function (photo_arr) {
             var i;
             for (i=0 ; i<photo_arr.length ; i++){
-                console.log('path: "' + photo_arr[i].path + '", create_date: ' + photo_arr[i].create_date + ', tag: "' + photo_arr[i].tag.join(',') + '"'):
+                console.log('path: "' + photo_arr[i].path + '", create_date: ' + photo_arr[i].create_date + ', tag: "' + photo_arr[i].tag.join(',') + '"');
             }
             //print tag
             album_inst.list_tag(function (tag_arr) {
                 var i;
                 for (i=0 ; i<tag_arr.length ; i++){
-                    console.log('name: "' + tag_arr[i].name + '", last_update: ' + tag_arr[i].last_update):
+                    console.log('name: "' + tag_arr[i].name + '", last_update: ' + tag_arr[i].last_update);
                 }
                 album_inst.clear_db();
             });
